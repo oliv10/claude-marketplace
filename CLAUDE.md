@@ -8,6 +8,29 @@ This is a community marketplace for Claude Code extensions (plugins and skills).
 
 ## Development Workflow
 
+### Branch Management
+
+**CRITICAL**: Always work on the appropriate branch for the user's request.
+
+Before starting work:
+
+1. **Check current branch**: Run `git branch --show-current` to see where you are
+2. **Determine correct branch** based on the work type:
+   - **New extensions (plugins/skills)**: Create a feature branch named `add-[extension-name]`
+   - **Extension updates**: Create a branch named `update-[extension-name]`
+   - **Repository maintenance** (README, marketplace.json, CLAUDE.md updates): Use `main` or ask user
+   - **Bug fixes**: Create a branch named `fix-[issue-description]`
+3. **Create branch if needed**:
+   ```bash
+   git checkout -b [branch-name]
+   git push -u origin [branch-name]
+   ```
+4. **If uncertain**: Ask the user which branch to work on before making changes
+
+**Never assume you're on the right branch.** Always verify before committing.
+
+### Commit and Push
+
 **IMPORTANT**: After every code change, commit and push to the current branch:
 
 ```bash
