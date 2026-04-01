@@ -12,9 +12,7 @@ This is a community marketplace for Claude Code extensions (plugins and skills).
 
 ```bash
 git add <changed-files>
-git commit -m "Descriptive commit message
-
-Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>"
+git commit -m "Descriptive commit message"
 git push
 ```
 
