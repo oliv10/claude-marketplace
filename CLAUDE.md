@@ -6,7 +6,73 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is a community marketplace for Claude Code extensions (plugins and skills). It serves as a centralized registry where users can discover and share extensions. The repository itself doesn't contain executable code—it's a collection/catalog of extensions that are submitted via pull requests.
 
+## Quick Reference
+
+```bash
+# Check current branch
+git branch --show-current
+
+# Create feature branch
+git checkout -b add-[extension-name]
+
+# Commit and push changes
+git add <files>
+git commit -m "Description"
+git push
+
+# Create pull request
+gh pr create --title "Title" --body "Description"
+
+# Test extension locally
+cp -r plugins/[name] ~/.claude/plugins/
+cp skills/[name].md ~/.claude/skills/
+```
+
 ## Development Workflow
+
+### Branch Management
+
+**CRITICAL**: Always work on the appropriate branch for the user's request.
+
+Before starting work:
+
+1. **Check current branch**: Run `git branch --show-current` to see where you are
+2. **Determine correct branch** based on the work type:
+   - **New extensions (plugins/skills)**: Create a feature branch named `add-[extension-name]`
+   - **Extension updates**: Create a branch named `update-[extension-name]`
+   - **Repository maintenance** (README, marketplace.json, CLAUDE.md updates): Use `main` or ask user
+   - **Bug fixes**: Create a branch named `fix-[issue-description]`
+3. **Create branch if needed**:
+   ```bash
+   git checkout -b [branch-name]
+   git push -u origin [branch-name]
+   ```
+4. **If uncertain**: Ask the user which branch to work on before making changes
+
+**Never assume you're on the right branch.** Always verify before committing.
+
+### Pull Request Workflow
+
+**Note**: The main branch is protected and requires pull requests for all changes.
+
+After committing to your feature branch, create a PR:
+
+```bash
+gh pr create --title "Brief description of changes" --body "$(cat <<'EOF'
+## Summary
+- Bullet point summary of changes
+
+## Changes
+- Detailed list of what was modified/added
+
+Co-Authored-By: [Current Claude Model] <noreply@anthropic.com>
+EOF
+)"
+```
+
+This will create a PR and return the URL for review.
+
+### Commit and Push
 
 **IMPORTANT**: After every code change, commit and push to the current branch:
 
@@ -50,6 +116,33 @@ The `.claude-plugin/marketplace.json` defines:
 - `marketplace.type` - Set to "community" (vs official)
 - `marketplace.featured` - Array of featured extension names
 - `marketplace.collections` - Grouped extension sets
+
+## Validation Commands
+
+### Validating Extension Structure
+
+Before submitting or reviewing extensions, validate their structure:
+
+```bash
+# Check if plugin has required plugin.json
+test -f plugins/[plugin-name]/plugin.json && echo "✓ plugin.json exists" || echo "✗ Missing plugin.json"
+
+# Validate JSON syntax
+jq empty plugins/[plugin-name]/plugin.json && echo "✓ Valid JSON" || echo "✗ Invalid JSON"
+
+# Check required fields in plugin.json
+jq -r '.name, .version, .description, .author, .license' plugins/[plugin-name]/plugin.json
+
+# For skills, check YAML frontmatter
+head -20 skills/[skill-name].md | grep -E "^(name|description):"
+```
+
+### Validating Categories
+
+Extensions must use categories defined in marketplace.json. Valid categories:
+- productivity
+- development
+- utilities
 
 ## Working with Submissions
 
