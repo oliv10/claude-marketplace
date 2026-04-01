@@ -119,13 +119,15 @@ plugins/your-plugin/
 
 To include MCP servers in your plugin, configure them in `plugin.json`:
 
+**IMPORTANT:** You MUST use `${CLAUDE_PLUGIN_ROOT}` for all paths to bundled files.
+
 ```json
 {
   "name": "your-plugin",
   "mcpServers": {
     "server-name": {
       "command": "node",
-      "args": ["./mcp-servers/server-name/index.js"],
+      "args": ["${CLAUDE_PLUGIN_ROOT}/mcp-servers/server-name/index.js"],
       "env": {
         "API_KEY": "${API_KEY}"
       }
@@ -167,7 +169,7 @@ If your MCP server has npm dependencies, you MUST add a SessionStart hook to aut
   "mcpServers": {
     "server-name": {
       "command": "node",
-      "args": ["./mcp-servers/server-name/index.js"]
+      "args": ["${CLAUDE_PLUGIN_ROOT}/mcp-servers/server-name/index.js"]
     }
   }
 }
