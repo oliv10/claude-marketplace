@@ -8,9 +8,11 @@ This marketplace provides a centralized repository for discovering, sharing, and
 
 ### Extension Types
 
-- **Plugins** - Claude Code plugins that bundle skills, configurations, and resources
+- **Plugins** - Claude Code plugins that can bundle skills, configurations, and even MCP servers for integrated experiences
 - **Skills** - Standalone agent prompts with specialized triggers and capabilities
 - **MCP Servers** - Model Context Protocol servers that provide tools and resources to Claude
+
+**Note:** MCP servers can be distributed either as standalone servers (in `mcp-servers/`) requiring manual configuration, or bundled inside plugins (in `plugins/`) for automatic configuration and easier installation.
 
 ## Directory Structure
 
@@ -55,9 +57,11 @@ Browse the [skills/](../skills/) directory for standalone skills.
 
 ### MCP Servers
 
-Browse the [mcp-servers/](../mcp-servers/) directory for Model Context Protocol servers.
+Browse the [mcp-servers/](../mcp-servers/) directory for standalone Model Context Protocol servers.
 
-*No MCP servers available yet - contributions welcome!*
+*No standalone MCP servers available yet - contributions welcome!*
+
+**Note:** MCP servers can also be bundled inside plugins for easier installation. Check individual plugins to see if they include MCP servers.
 
 ## Contributing
 
@@ -75,7 +79,8 @@ We welcome contributions! To add your extension to the marketplace:
 
 **Plugins:**
 - Must include a `plugin.json` manifest file with name, version, description, and author
-- Should document any bundled skills or resources
+- Should document any bundled skills, resources, or MCP servers
+- Can optionally bundle MCP servers (configured in plugin.json) for zero-configuration installation
 - Include installation and configuration instructions
 
 **Skills:**
@@ -83,8 +88,10 @@ We welcome contributions! To add your extension to the marketplace:
 - Document usage examples and expected behavior
 
 **MCP Servers:**
-- Must include a manifest file (package.json or server config)
-- Specify tools/resources provided and protocol version
+- Can be distributed standalone (in `mcp-servers/`) or bundled in plugins (in `plugins/`)
+- Standalone: Must include manifest (package.json), require manual settings.json configuration
+- Plugin-bundled: Automatically configured via plugin.json, zero-config installation
+- Must specify tools/resources provided and protocol version
 - Include setup instructions and dependencies
 - Document API endpoints and capabilities
 
