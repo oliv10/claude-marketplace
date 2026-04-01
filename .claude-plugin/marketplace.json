@@ -1,11 +1,31 @@
 {
-  "name": "personal-claude-marketplace",
+  "name": "claude-marketplace",
   "version": "1.0.0",
   "description": "A curated collection of plugins and skills for Claude Code",
   "owner": {
     "name": "Oliver Scotten",
     "email": "revi99@me.com"
   },
-  "plugins": [],
-  "skills": ["hello", "fortune"]
+  "metadata": {
+    "description": "Community marketplace for Claude Code extensions",
+    "version": "1.0.0",
+    "pluginRoot": "./plugins"
+  },
+  "plugins": [
+    {
+      "name": "starter-skills",
+      "source": "./plugins/starter-skills",
+      "description": "Simple, fun skills to get started with Claude Code - includes hello and fortune skills",
+      "version": "1.0.0",
+      "author": {
+        "name": "Claude Marketplace",
+        "email": "revi99@me.com"
+      },
+      "homepage": "https://github.com/oliv10/claude-marketplace",
+      "repository": "https://github.com/oliv10/claude-marketplace",
+      "license": "MIT",
+      "keywords": ["skills", "hello", "fortune", "starter", "beginner"],
+      "category": "productivity"
+    }
+  ]
 }
