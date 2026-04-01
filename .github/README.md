@@ -58,6 +58,7 @@ Browse the [plugins/](../plugins/) directory for available plugins. Each plugin 
 
 ### Currently Available
 
+- **[hello-mcp](../plugins/hello-mcp/)** ⭐ *Featured* - Demo plugin showcasing a simple MCP server with example tools (great for learning!)
 - **[network-tools](../plugins/network-tools/)** - Network utility skills for ping and DNS lookups
 
 *More plugins coming soon - contributions welcome!*

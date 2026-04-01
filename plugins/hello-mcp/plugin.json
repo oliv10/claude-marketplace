@@ -1,0 +1,20 @@
+{
+  "name": "hello-mcp",
+  "version": "1.0.0",
+  "description": "Demo plugin showcasing a simple MCP server with example tools",
+  "author": {
+    "name": "Community Marketplace",
+    "email": "revi99@me.com"
+  },
+  "license": "MIT",
+  "category": "development",
+  "keywords": ["demo", "mcp", "example", "tutorial", "getting-started"],
+  "homepage": "https://github.com/oliv10/claude-marketplace",
+  "repository": "https://github.com/oliv10/claude-marketplace",
+  "mcpServers": {
+    "hello-server": {
+      "command": "node",
+      "args": ["./mcp-servers/hello-server/index.js"]
+    }
+  }
+}

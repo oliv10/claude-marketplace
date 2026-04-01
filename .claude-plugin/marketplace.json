@@ -16,11 +16,26 @@
   },
   "marketplace": {
     "type": "community",
-    "featured": [],
+    "featured": ["hello-mcp"],
     "collections": [],
     "categories": ["productivity", "development", "utilities", "networking"]
   },
   "plugins": [
+    {
+      "name": "hello-mcp",
+      "source": "./plugins/hello-mcp",
+      "description": "Demo plugin showcasing a simple MCP server with example tools",
+      "version": "1.0.0",
+      "author": {
+        "name": "Community Marketplace",
+        "email": "revi99@me.com"
+      },
+      "homepage": "https://github.com/oliv10/claude-marketplace",
+      "repository": "https://github.com/oliv10/claude-marketplace",
+      "license": "MIT",
+      "keywords": ["demo", "mcp", "example", "tutorial", "getting-started"],
+      "category": "development"
+    },
     {
       "name": "network-tools",
       "source": "./plugins/network-tools",
