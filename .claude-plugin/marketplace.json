@@ -3,11 +3,14 @@
   "version": "1.0.0",
   "displayName": "Claude Marketplace",
   "description": "A curated collection of plugins and skills for Claude Code",
-  "author": "Oliver Scotten",
+  "author": {
+    "name": "Oliver Scotten",
+    "email": "revi99@me.com"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/oliver-scotten/claude-marketplace"
+    "url": "https://github.com/oliv10/claude-marketplace"
   },
   "categories": [
     "productivity",

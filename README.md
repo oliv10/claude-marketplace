@@ -23,7 +23,7 @@ To use extensions from this marketplace:
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/oliver-scotten/claude-marketplace.git
+   git clone https://github.com/oliv10/claude-marketplace.git
    cd claude-marketplace
    ```
 
@@ -85,8 +85,8 @@ This marketplace repository is licensed under the MIT License. Individual plugin
 
 ## Support
 
-- **Issues**: Report bugs or request features via [GitHub Issues](https://github.com/oliver-scotten/claude-marketplace/issues)
-- **Discussions**: Join conversations in [GitHub Discussions](https://github.com/oliver-scotten/claude-marketplace/discussions)
+- **Issues**: Report bugs or request features via [GitHub Issues](https://github.com/oliv10/claude-marketplace/issues)
+- **Discussions**: Join conversations in [GitHub Discussions](https://github.com/oliv10/claude-marketplace/discussions)
 - **Documentation**: Visit the [Claude Code documentation](https://claude.ai/code) for general help
 
 ## Roadmap
