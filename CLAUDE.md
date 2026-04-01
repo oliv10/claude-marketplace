@@ -149,13 +149,27 @@ plugins/plugin-name/
 
 1. **`plugin.json` manifest** with:
    - `name` (kebab-case, unique)
-   - `version` (semver: 1.0.0)
+   - `version` (semver: 1.0.0) - **MUST be incremented for any changes**
    - `description`
    - `author` (object with name and email)
    - `license` (e.g., MIT, Apache-2.0)
    - Optional: `category` (productivity, development, utilities, networking)
    - Optional: `keywords` (array for discoverability)
    - Optional: `mcpServers` (object defining bundled MCP servers)
+
+**CRITICAL: Version Numbering**
+
+Claude Code only updates plugins when the version number changes. Follow semantic versioning:
+- **Patch (1.0.0 → 1.0.1)**: Bug fixes, documentation updates, minor improvements
+- **Minor (1.0.0 → 1.1.0)**: New features, backwards-compatible changes
+- **Major (1.0.0 → 2.0.0)**: Breaking changes
+
+**When making ANY change to a plugin:**
+1. Increment the version in `plugins/[plugin-name]/plugin.json`
+2. Update the version in `.claude-plugin/marketplace.json` 
+3. Both must match or the update won't work
+
+Without a version bump, users who already installed the plugin won't get your fixes!
 
 2. **`README.md`** with:
    - What the plugin does
