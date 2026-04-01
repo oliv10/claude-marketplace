@@ -26,7 +26,7 @@
   "mcpServers": {
     "network-info-server": {
       "command": "node",
-      "args": ["./mcp-servers/network-info-server/index.js"]
+      "args": ["${CLAUDE_PLUGIN_ROOT}/mcp-servers/network-info-server/index.js"]
     }
   }
 }
