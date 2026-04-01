@@ -1,39 +1,10 @@
 {
-  "name": "marketplace",
-  "version": "1.0.0",
-  "displayName": "Marketplace",
+  "name": "claude-marketplace",
   "description": "A curated collection of plugins and skills for Claude Code",
-  "author": {
+  "owner": {
     "name": "Oliver Scotten",
     "email": "revi99@me.com"
   },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/oliv10/claude-marketplace"
-  },
-  "categories": [
-    "productivity",
-    "development",
-    "utilities"
-  ],
-  "keywords": [
-    "claude",
-    "plugins",
-    "skills",
-    "marketplace",
-    "extensions"
-  ],
-  "engines": {
-    "claude-code": ">=1.0.0"
-  },
-  "directories": {
-    "plugins": "./plugins",
-    "skills": "./skills"
-  },
-  "marketplace": {
-    "type": "community",
-    "featured": [],
-    "collections": []
-  }
+  "plugins": [],
+  "skills": []
 }
