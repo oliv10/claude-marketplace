@@ -16,15 +16,15 @@
   },
   "marketplace": {
     "type": "community",
-    "featured": ["hello-mcp"],
+    "featured": ["network-info"],
     "collections": [],
     "categories": ["productivity", "development", "utilities", "networking"]
   },
   "plugins": [
     {
-      "name": "hello-mcp",
-      "source": "./plugins/hello-mcp",
-      "description": "Demo plugin showcasing a simple MCP server with example tools",
+      "name": "network-info",
+      "source": "./plugins/network-info",
+      "description": "Get network information including your public IP address, IP geolocation, and internet connectivity status",
       "version": "1.0.0",
       "author": {
         "name": "Community Marketplace",
@@ -33,8 +33,8 @@
       "homepage": "https://github.com/oliv10/claude-marketplace",
       "repository": "https://github.com/oliv10/claude-marketplace",
       "license": "MIT",
-      "keywords": ["demo", "mcp", "example", "tutorial", "getting-started"],
-      "category": "development"
+      "keywords": ["network", "ip", "geolocation", "connectivity", "api", "demo"],
+      "category": "utilities"
     },
     {
       "name": "network-tools",
