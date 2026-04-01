@@ -6,6 +6,20 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is a community marketplace for Claude Code extensions (plugins and skills). It serves as a centralized registry where users can discover and share extensions. The repository itself doesn't contain executable code—it's a collection/catalog of extensions that are submitted via pull requests.
 
+## Development Workflow
+
+**IMPORTANT**: After every code change, commit and push to the current branch:
+
+```bash
+git add <changed-files>
+git commit -m "Descriptive commit message
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>"
+git push
+```
+
+This ensures all changes are immediately persisted and visible to collaborators.
+
 ## Architecture
 
 ### Directory Structure
