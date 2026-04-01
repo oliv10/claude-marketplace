@@ -175,6 +175,30 @@ plugins/plugin-name/
 - Located in `mcp-servers/` subdirectory
 - Configured in plugin.json's `mcpServers` field
 - Automatically configured when plugin is enabled
+- **IMPORTANT**: If your MCP server has npm dependencies, you MUST add a SessionStart hook to auto-install them
+
+**SessionStart Hook for MCP Servers with Dependencies:**
+
+If your MCP server requires npm packages, add this hook to plugin.json:
+
+```json
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "test -d \"${CLAUDE_PLUGIN_ROOT}/mcp-servers/[server-name]/node_modules\" || (cd \"${CLAUDE_PLUGIN_ROOT}/mcp-servers/[server-name]\" && npm install --silent)"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+Replace `[server-name]` with your MCP server directory name. This ensures dependencies are automatically installed when users first start Claude Code after installing your plugin.
 
 ### Marketplace Manifest
 
