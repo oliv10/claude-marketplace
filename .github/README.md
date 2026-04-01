@@ -1,10 +1,16 @@
 # Marketplace
 
-A curated collection of plugins and skills for Claude Code, designed to extend and enhance your Claude development experience.
+A curated collection of plugins, skills, and MCP servers for Claude Code, designed to extend and enhance your Claude development experience.
 
 ## Overview
 
-This marketplace provides a centralized repository for discovering, sharing, and installing Claude Code plugins and skills. Whether you're looking to boost productivity, add new capabilities, or customize your workflow, you'll find community-contributed extensions here.
+This marketplace provides a centralized repository for discovering, sharing, and installing Claude Code extensions. Whether you're looking to boost productivity, add new capabilities, or customize your workflow, you'll find community-contributed extensions here.
+
+### Extension Types
+
+- **Plugins** - Claude Code plugins that bundle skills, configurations, and resources
+- **Skills** - Standalone agent prompts with specialized triggers and capabilities
+- **MCP Servers** - Model Context Protocol servers that provide tools and resources to Claude
 
 ## Directory Structure
 
@@ -13,7 +19,8 @@ marketplace/
 ├── .claude-plugin/       # Marketplace metadata and configuration
 │   └── marketplace.json  # Marketplace manifest
 ├── plugins/              # Claude Code plugins
-├── skills/               # Claude Code skills
+├── skills/               # Standalone Claude Code skills
+├── mcp-servers/          # Model Context Protocol servers
 └── README.md            # This file
 ```
 
@@ -35,32 +42,56 @@ To use extensions from this marketplace:
 
 ### Plugins
 
-Browse the [plugins/](plugins/) directory for available plugins.
+Browse the [plugins/](../plugins/) directory for available plugins.
 
-*No plugins available yet - contributions welcome!*
+**Available:**
+- [network-tools](../plugins/network-tools/) - Network utility skills for ping and DNS lookups
 
 ### Skills
 
-Browse the [skills/](skills/) directory for available skills.
+Browse the [skills/](../skills/) directory for standalone skills.
 
-*No skills available yet - contributions welcome!*
+*No standalone skills available yet - contributions welcome!*
+
+### MCP Servers
+
+Browse the [mcp-servers/](../mcp-servers/) directory for Model Context Protocol servers.
+
+*No MCP servers available yet - contributions welcome!*
 
 ## Contributing
 
-We welcome contributions! To add your plugin or skill to the marketplace:
+We welcome contributions! To add your extension to the marketplace:
 
 1. Fork this repository
-2. Add your extension to the appropriate directory (`plugins/` or `skills/`)
+2. Add your extension to the appropriate directory:
+   - `plugins/` for Claude Code plugins
+   - `skills/` for standalone skills
+   - `mcp-servers/` for MCP servers
 3. Include proper documentation and metadata
 4. Submit a pull request
 
 ### Submission Guidelines
 
-- **Plugins**: Must include a `plugin.json` manifest file with name, version, description, and author
-- **Skills**: Must include proper frontmatter with description and trigger conditions
-- **Documentation**: Each extension should have clear usage instructions
-- **Quality**: Code should be well-tested and follow best practices
-- **License**: Clearly specify the license for your extension
+**Plugins:**
+- Must include a `plugin.json` manifest file with name, version, description, and author
+- Should document any bundled skills or resources
+- Include installation and configuration instructions
+
+**Skills:**
+- Must include proper YAML frontmatter with name, description, and trigger conditions
+- Document usage examples and expected behavior
+
+**MCP Servers:**
+- Must include a manifest file (package.json or server config)
+- Specify tools/resources provided and protocol version
+- Include setup instructions and dependencies
+- Document API endpoints and capabilities
+
+**All Extensions:**
+- Each extension should have clear usage instructions
+- Code should be well-tested and follow best practices
+- Clearly specify the license for your extension
 
 ## Development
 
