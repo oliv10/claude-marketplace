@@ -7,5 +7,5 @@
     "email": "revi99@me.com"
   },
   "plugins": [],
-  "skills": []
+  "skills": ["hello", "fortune"]
 }
