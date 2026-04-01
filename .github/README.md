@@ -1,10 +1,20 @@
 # Marketplace
 
-A curated collection of plugins and skills for Claude Code, designed to extend and enhance your Claude development experience.
+A curated collection of plugins for Claude Code, designed to extend and enhance your Claude development experience.
 
 ## Overview
 
-This marketplace provides a centralized repository for discovering, sharing, and installing Claude Code plugins and skills. Whether you're looking to boost productivity, add new capabilities, or customize your workflow, you'll find community-contributed extensions here.
+This marketplace provides a centralized repository for discovering, sharing, and installing Claude Code plugins. Whether you're looking to boost productivity, add new capabilities, or customize your workflow, you'll find community-contributed plugins here.
+
+**All extensions (skills, MCP servers, configurations) are bundled inside plugins for easy, consistent installation.**
+
+### What Plugins Can Include
+
+Plugins are self-contained packages that can bundle:
+- **Skills** - Agent prompts with specialized triggers and capabilities
+- **MCP Servers** - Model Context Protocol servers that provide tools and resources
+- **Configurations** - Settings, prompts, and resource files
+- **Documentation** - Usage guides and examples
 
 ## Directory Structure
 
@@ -12,14 +22,13 @@ This marketplace provides a centralized repository for discovering, sharing, and
 marketplace/
 ├── .claude-plugin/       # Marketplace metadata and configuration
 │   └── marketplace.json  # Marketplace manifest
-├── plugins/              # Claude Code plugins
-├── skills/               # Claude Code skills
+├── plugins/              # Claude Code plugins (includes all extension types)
 └── README.md            # This file
 ```
 
 ## Installation
 
-To use extensions from this marketplace:
+To install plugins from this marketplace:
 
 1. Clone this repository:
    ```bash
@@ -27,40 +36,122 @@ To use extensions from this marketplace:
    cd claude-marketplace
    ```
 
-2. Browse the available plugins and skills in their respective directories
+2. Copy the desired plugin to your Claude plugins directory:
+   ```bash
+   cp -r plugins/plugin-name ~/.claude/plugins/
+   ```
 
-3. Install desired extensions by following their individual installation instructions
+3. Enable the plugin in `~/.claude/settings.json`:
+   ```json
+   {
+     "plugins": ["plugin-name"]
+   }
+   ```
 
-## Available Extensions
+4. Restart Claude Code
 
-### Plugins
+The plugin's bundled skills, MCP servers, and configurations are automatically loaded!
 
-Browse the [plugins/](plugins/) directory for available plugins.
+## Available Plugins
 
-*No plugins available yet - contributions welcome!*
+Browse the [plugins/](../plugins/) directory for available plugins. Each plugin may include skills, MCP servers, configurations, and more.
 
-### Skills
+### Currently Available
 
-Browse the [skills/](skills/) directory for available skills.
+- **[hello-mcp](../plugins/hello-mcp/)** ⭐ *Featured* - Demo plugin showcasing a simple MCP server with example tools (great for learning!)
+- **[network-tools](../plugins/network-tools/)** - Network utility skills for ping and DNS lookups
 
-*No skills available yet - contributions welcome!*
+*More plugins coming soon - contributions welcome!*
 
 ## Contributing
 
-We welcome contributions! To add your plugin or skill to the marketplace:
+We welcome contributions! To add your plugin to the marketplace:
 
 1. Fork this repository
-2. Add your extension to the appropriate directory (`plugins/` or `skills/`)
+2. Create your plugin in the `plugins/` directory
 3. Include proper documentation and metadata
 4. Submit a pull request
 
-### Submission Guidelines
+### Plugin Requirements
 
-- **Plugins**: Must include a `plugin.json` manifest file with name, version, description, and author
-- **Skills**: Must include proper frontmatter with description and trigger conditions
-- **Documentation**: Each extension should have clear usage instructions
-- **Quality**: Code should be well-tested and follow best practices
-- **License**: Clearly specify the license for your extension
+**All plugins must include:**
+
+1. **`plugin.json` manifest** with:
+   - `name` (kebab-case)
+   - `version` (semver: 1.0.0)
+   - `description`
+   - `author` (name and email)
+   - `license` (e.g., MIT)
+   - Optional: `category` (productivity, development, utilities, networking)
+   - Optional: `keywords` for discoverability
+
+2. **README.md** with:
+   - What the plugin does
+   - Installation instructions
+   - Usage examples
+   - List of included skills/MCP servers/resources
+   - Any dependencies or prerequisites
+
+3. **Clear structure**:
+   ```
+   plugins/your-plugin/
+   ├── plugin.json          # Required manifest
+   ├── README.md            # Required documentation
+   ├── LICENSE              # Required license file
+   ├── skills/              # Optional: bundled skills
+   ├── mcp-servers/         # Optional: bundled MCP servers
+   └── resources/           # Optional: additional resources
+   ```
+
+### Bundling Skills
+
+To include skills in your plugin, add them to a `skills/` subdirectory:
+
+```
+plugins/your-plugin/
+├── plugin.json
+└── skills/
+    └── skill-name/
+        └── SKILL.md     # YAML frontmatter + skill content
+```
+
+### Bundling MCP Servers
+
+To include MCP servers in your plugin, configure them in `plugin.json`:
+
+```json
+{
+  "name": "your-plugin",
+  "mcpServers": {
+    "server-name": {
+      "command": "node",
+      "args": ["./mcp-servers/server-name/index.js"],
+      "env": {
+        "API_KEY": "${API_KEY}"
+      }
+    }
+  }
+}
+```
+
+Then include the server implementation:
+
+```
+plugins/your-plugin/
+├── plugin.json
+└── mcp-servers/
+    └── server-name/
+        ├── index.js
+        └── package.json
+```
+
+### Quality Guidelines
+
+- Code should be well-tested and follow best practices
+- Document all features and usage examples
+- Include error handling and validation
+- Clearly specify any external dependencies
+- Follow semantic versioning
 
 ## Development
 
