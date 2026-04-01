@@ -1,7 +1,7 @@
 {
-  "name": "claude-marketplace",
+  "name": "marketplace",
   "version": "1.0.0",
-  "displayName": "Claude Marketplace",
+  "displayName": "Marketplace",
   "description": "A curated collection of plugins and skills for Claude Code",
   "author": {
     "name": "Oliver Scotten",

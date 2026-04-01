@@ -1,4 +1,4 @@
-# Claude Marketplace
+# Marketplace
 
 A curated collection of plugins and skills for Claude Code, designed to extend and enhance your Claude development experience.
 
@@ -9,7 +9,7 @@ This marketplace provides a centralized repository for discovering, sharing, and
 ## Directory Structure
 
 ```
-claude-marketplace/
+marketplace/
 ├── .claude-plugin/       # Marketplace metadata and configuration
 │   └── marketplace.json  # Marketplace manifest
 ├── plugins/              # Claude Code plugins
