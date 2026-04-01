@@ -1,0 +1,31 @@
+{
+  "name": "starter-skills",
+  "version": "1.0.0",
+  "displayName": "Starter Skills",
+  "description": "Simple, fun skills to get started with Claude Code - includes hello and fortune skills",
+  "author": {
+    "name": "Claude Marketplace",
+    "email": "revi99@me.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oliv10/claude-marketplace"
+  },
+  "keywords": [
+    "skills",
+    "hello",
+    "fortune",
+    "starter",
+    "beginner"
+  ],
+  "category": "productivity",
+  "skills": {
+    "hello": {
+      "path": "./skills/hello"
+    },
+    "fortune": {
+      "path": "./skills/fortune"
+    }
+  }
+}
