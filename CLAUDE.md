@@ -12,9 +12,13 @@ This is a community marketplace for Claude Code extensions (plugins and skills).
 
 ```bash
 git add <changed-files>
-git commit -m "Descriptive commit message"
+git commit -m "Descriptive commit message
+
+Co-Authored-By: [Current Claude Model] <noreply@anthropic.com>"
 git push
 ```
+
+Replace `[Current Claude Model]` with the specific model you are running as (e.g., "Claude Sonnet 4.5", "Claude Opus 4.6", etc.).
 
 This ensures all changes are immediately persisted and visible to collaborators.
 
