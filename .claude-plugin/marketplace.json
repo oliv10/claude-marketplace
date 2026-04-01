@@ -1,22 +1,18 @@
 {
   "name": "community-marketplace",
   "version": "1.0.0",
-  "description": "A curated collection of plugins, skills, and MCP servers for Claude Code",
+  "description": "A curated collection of plugins for Claude Code",
   "owner": {
     "name": "Oliver Scotten",
     "email": "revi99@me.com"
   },
   "metadata": {
-    "description": "Community marketplace for Claude Code extensions",
+    "description": "Community marketplace for Claude Code plugins",
     "version": "1.0.0",
-    "pluginRoot": "./plugins",
-    "mcpServerRoot": "./mcp-servers",
-    "skillsRoot": "./skills"
+    "pluginRoot": "./plugins"
   },
   "directories": {
-    "plugins": "./plugins",
-    "mcp-servers": "./mcp-servers",
-    "skills": "./skills"
+    "plugins": "./plugins"
   },
   "marketplace": {
     "type": "community",
@@ -40,7 +36,5 @@
       "keywords": ["network", "ping", "dns", "utilities", "networking"],
       "category": "utilities"
     }
-  ],
-  "mcpServers": [],
-  "skills": []
+  ]
 }

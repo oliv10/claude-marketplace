@@ -4,13 +4,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Purpose
 
-This is a community marketplace for Claude Code extensions (plugins, skills, and MCP servers). It serves as a centralized registry where users can discover and share extensions. The repository itself doesn't contain executable code—it's a collection/catalog of extensions that are submitted via pull requests.
+This is a community marketplace for Claude Code plugins. It serves as a centralized registry where users can discover and share plugins. The repository itself doesn't contain executable code—it's a collection/catalog of plugins that are submitted via pull requests.
 
-### Extension Types
+**All extensions (skills, MCP servers, configurations) must be bundled inside plugins for easy, consistent installation.**
 
-- **Plugins** - Claude Code plugins that can bundle skills, configurations, and resources
-- **Skills** - Standalone agent prompts with specialized triggers and capabilities  
-- **MCP Servers** - Model Context Protocol servers that provide tools and resources to Claude
+### What Plugins Can Include
+
+Plugins are self-contained packages that can bundle:
+- **Skills** - Agent prompts with specialized triggers and capabilities
+- **MCP Servers** - Model Context Protocol servers that provide tools and resources
+- **Configurations** - Settings, prompts, and resource files
+- **Documentation** - Usage guides and examples
 
 ## Quick Reference
 
@@ -29,10 +33,9 @@ git push
 # Create pull request
 gh pr create --title "Title" --body "Description"
 
-# Test extensions locally
+# Test plugin locally
 cp -r plugins/[name] ~/.claude/plugins/
-cp skills/[name].md ~/.claude/skills/
-cp -r mcp-servers/[name] ~/.claude/mcp-servers/
+# Then enable in ~/.claude/settings.json: {"plugins": ["[name]"]}
 ```
 
 ## Development Workflow
@@ -45,8 +48,8 @@ Before starting work:
 
 1. **Check current branch**: Run `git branch --show-current` to see where you are
 2. **Determine correct branch** based on the work type:
-   - **New extensions (plugins/skills/mcp-servers)**: Create a feature branch named `add-[extension-name]`
-   - **Extension updates**: Create a branch named `update-[extension-name]`
+   - **New plugins**: Create a feature branch named `add-[plugin-name]`
+   - **Plugin updates**: Create a branch named `update-[plugin-name]`
    - **Repository maintenance** (README, marketplace.json, CLAUDE.md updates): Use `main` or ask user
    - **Bug fixes**: Create a branch named `fix-[issue-description]`
 3. **Create branch if needed**:
@@ -116,48 +119,84 @@ This ensures all changes are immediately persisted and visible to collaborators.
 
 ### Directory Structure
 
-- **`plugins/`** - Contains Claude Code plugins (can bundle skills and configurations)
-- **`skills/`** - Contains standalone Claude Code skills (specialized agent prompts with triggers)
-- **`mcp-servers/`** - Contains Model Context Protocol servers (tools and resources for Claude)
+- **`plugins/`** - Contains all Claude Code plugins
+  - Each plugin is self-contained with its own subdirectory
+  - Plugins can bundle skills, MCP servers, configurations, and resources
 - **`.claude-plugin/marketplace.json`** - Marketplace manifest defining metadata, categories, and configuration
 - **`.github/README.md`** - User-facing documentation
 
-### Extension Requirements
+### Plugin Structure
 
-**Plugins** must include:
-- `plugin.json` manifest with: name, version, description, author
-- Clear documentation with installation and usage instructions
-- License specification
+Each plugin should follow this structure:
 
-**Skills** must include:
-- Proper YAML frontmatter with: name, description, trigger conditions
-- Usage documentation
-- License specification
+```
+plugins/plugin-name/
+├── plugin.json          # Required: manifest
+├── README.md            # Required: documentation
+├── LICENSE              # Required: license file
+├── skills/              # Optional: bundled skills
+│   └── skill-name/
+│       └── SKILL.md
+├── mcp-servers/         # Optional: bundled MCP servers
+│   └── server-name/
+│       └── index.js
+└── resources/           # Optional: additional resources
+```
 
-**MCP Servers** must include:
-- Manifest file (package.json or server config) with: name, version, description
-- Documentation of provided tools/resources and protocol version
-- Setup instructions and dependencies
-- License specification
+### Plugin Requirements
+
+**All plugins must include:**
+
+1. **`plugin.json` manifest** with:
+   - `name` (kebab-case, unique)
+   - `version` (semver: 1.0.0)
+   - `description`
+   - `author` (object with name and email)
+   - `license` (e.g., MIT, Apache-2.0)
+   - Optional: `category` (productivity, development, utilities, networking)
+   - Optional: `keywords` (array for discoverability)
+   - Optional: `mcpServers` (object defining bundled MCP servers)
+
+2. **`README.md`** with:
+   - What the plugin does
+   - Installation instructions
+   - Usage examples
+   - List of included skills/MCP servers/resources
+   - Dependencies and prerequisites
+
+3. **`LICENSE` file**: Clear license specification
+
+**Bundled Skills:**
+- Located in `skills/` subdirectory
+- Each skill has YAML frontmatter with: name, description, trigger conditions
+- Usage documentation included
+
+**Bundled MCP Servers:**
+- Located in `mcp-servers/` subdirectory
+- Configured in plugin.json's `mcpServers` field
+- Automatically configured when plugin is enabled
 
 ### Marketplace Manifest
 
 The `.claude-plugin/marketplace.json` defines:
-- `directories` - Maps extension types to their filesystem locations (plugins, skills, mcp-servers)
+- `directories.plugins` - Path to plugins directory (./plugins)
 - `marketplace.type` - Set to "community" (vs official)
-- `marketplace.featured` - Array of featured extension names
-- `marketplace.collections` - Grouped extension sets
-- `marketplace.categories` - Valid categories for extensions (productivity, development, utilities, networking)
+- `marketplace.featured` - Array of featured plugin names
+- `marketplace.collections` - Grouped plugin sets
+- `marketplace.categories` - Valid categories (productivity, development, utilities, networking)
+- `plugins` - Array of plugin metadata entries
 
 ## Validation Commands
 
-### Validating Extension Structure
+### Validating Plugin Structure
 
-Before submitting or reviewing extensions, validate their structure:
+Before submitting or reviewing plugins, validate their structure:
 
 ```bash
-# Check if plugin has required plugin.json
+# Check required files
 test -f plugins/[plugin-name]/plugin.json && echo "✓ plugin.json exists" || echo "✗ Missing plugin.json"
+test -f plugins/[plugin-name]/README.md && echo "✓ README.md exists" || echo "✗ Missing README.md"
+test -f plugins/[plugin-name]/LICENSE && echo "✓ LICENSE exists" || echo "✗ Missing LICENSE"
 
 # Validate JSON syntax
 jq empty plugins/[plugin-name]/plugin.json && echo "✓ Valid JSON" || echo "✗ Invalid JSON"
@@ -165,17 +204,22 @@ jq empty plugins/[plugin-name]/plugin.json && echo "✓ Valid JSON" || echo "✗
 # Check required fields in plugin.json
 jq -r '.name, .version, .description, .author, .license' plugins/[plugin-name]/plugin.json
 
-# For skills, check YAML frontmatter
-head -20 skills/[skill-name].md | grep -E "^(name|description):"
+# Check for bundled skills (if present)
+if [ -d plugins/[plugin-name]/skills ]; then
+  echo "✓ Plugin includes skills"
+  ls -la plugins/[plugin-name]/skills/
+fi
 
-# For MCP servers, check manifest
-test -f mcp-servers/[server-name]/package.json && echo "✓ package.json exists" || echo "✗ Missing package.json"
-jq -r '.name, .version, .description' mcp-servers/[server-name]/package.json
+# Check for bundled MCP servers (if present)
+if [ -d plugins/[plugin-name]/mcp-servers ]; then
+  echo "✓ Plugin includes MCP servers"
+  jq '.mcpServers' plugins/[plugin-name]/plugin.json
+fi
 ```
 
 ### Validating Categories
 
-Extensions must use categories defined in marketplace.json. Valid categories:
+Plugins must use categories defined in marketplace.json. Valid categories:
 - productivity
 - development
 - utilities
@@ -185,26 +229,28 @@ Extensions must use categories defined in marketplace.json. Valid categories:
 
 ### Reviewing Pull Requests
 
-When reviewing extension submissions:
+When reviewing plugin submissions:
 
-1. **Validate structure**: Check for required manifest files (plugin.json or skill frontmatter)
-2. **Check metadata completeness**: Name, version, description, author, license must be present
-3. **Verify documentation**: Installation steps and usage examples must be clear
-4. **Test locally**: Copy to `.claude/` directory, enable in `settings.json`, test functionality
-5. **License verification**: Each extension must specify its license (can differ from marketplace's MIT)
+1. **Validate structure**: Check for required files (plugin.json, README.md, LICENSE)
+2. **Check metadata completeness**: Name, version, description, author, license must be present in plugin.json
+3. **Verify documentation**: README.md must have clear installation steps and usage examples
+4. **Check bundled content**: If plugin includes skills or MCP servers, ensure they're properly structured
+5. **Test locally**: Copy to `~/.claude/plugins/`, enable in `settings.json`, test functionality
+6. **License verification**: Each plugin must specify its license (can differ from marketplace's MIT)
 
-### Adding Extensions to Collections
+### Adding Plugins to Collections
 
-To feature or group extensions, update `.claude-plugin/marketplace.json`:
+To feature or group plugins, update `.claude-plugin/marketplace.json`:
 
 ```json
 {
   "marketplace": {
-    "featured": ["extension-name"],
+    "featured": ["plugin-name"],
     "collections": [
       {
         "name": "collection-name",
-        "items": ["ext1", "ext2"]
+        "description": "Description of this collection",
+        "items": ["plugin1", "plugin2"]
       }
     ]
   }
@@ -213,26 +259,32 @@ To feature or group extensions, update `.claude-plugin/marketplace.json`:
 
 ### Local Testing Workflow
 
-To test a submitted extension before merging:
+To test a submitted plugin before merging:
 
 ```bash
-# For plugins
+# Copy plugin to your local Claude directory
 cp -r plugins/new-plugin ~/.claude/plugins/
-# Edit ~/.claude/settings.json to enable the plugin
 
-# For skills  
-cp skills/new-skill.md ~/.claude/skills/
-# Skills are auto-discovered, no settings change needed
+# Enable the plugin in ~/.claude/settings.json
+# Add "new-plugin" to the plugins array:
+{
+  "plugins": ["new-plugin"]
+}
 
-# For MCP servers
-cp -r mcp-servers/new-server ~/.claude/mcp-servers/
-# Edit ~/.claude/settings.json to configure the MCP server
+# Restart Claude Code to load the plugin
+
+# Test all functionality:
+# - If it includes skills, verify they trigger correctly
+# - If it includes MCP servers, verify they're configured automatically
+# - Check all documented features work as expected
 ```
 
 ## Metadata Conventions
 
-- Version format: semver (1.0.0)
-- Names: kebab-case for files/directories, any case for display names
-- Categories: Must match those defined in marketplace.json (productivity, development, utilities, networking)
-- Each extension is self-contained within its own subdirectory
-- MCP servers should follow the Model Context Protocol specification
+- **Version format**: semver (1.0.0)
+- **Plugin names**: kebab-case for directories (e.g., `network-tools`), any case for display names in plugin.json
+- **Categories**: Must match those defined in marketplace.json (productivity, development, utilities, networking)
+- **Self-contained**: Each plugin is fully self-contained within its own subdirectory
+- **Bundled MCP servers**: Should follow the Model Context Protocol specification
+- **Bundled skills**: Should have YAML frontmatter with name, description, and trigger conditions
+- **License**: Each plugin must have a LICENSE file (can differ from marketplace's MIT)

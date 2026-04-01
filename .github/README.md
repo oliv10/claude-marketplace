@@ -1,18 +1,20 @@
 # Marketplace
 
-A curated collection of plugins, skills, and MCP servers for Claude Code, designed to extend and enhance your Claude development experience.
+A curated collection of plugins for Claude Code, designed to extend and enhance your Claude development experience.
 
 ## Overview
 
-This marketplace provides a centralized repository for discovering, sharing, and installing Claude Code extensions. Whether you're looking to boost productivity, add new capabilities, or customize your workflow, you'll find community-contributed extensions here.
+This marketplace provides a centralized repository for discovering, sharing, and installing Claude Code plugins. Whether you're looking to boost productivity, add new capabilities, or customize your workflow, you'll find community-contributed plugins here.
 
-### Extension Types
+**All extensions (skills, MCP servers, configurations) are bundled inside plugins for easy, consistent installation.**
 
-- **Plugins** - Claude Code plugins that can bundle skills, configurations, and even MCP servers for integrated experiences
-- **Skills** - Standalone agent prompts with specialized triggers and capabilities
-- **MCP Servers** - Model Context Protocol servers that provide tools and resources to Claude
+### What Plugins Can Include
 
-**Note:** MCP servers can be distributed either as standalone servers (in `mcp-servers/`) requiring manual configuration, or bundled inside plugins (in `plugins/`) for automatic configuration and easier installation.
+Plugins are self-contained packages that can bundle:
+- **Skills** - Agent prompts with specialized triggers and capabilities
+- **MCP Servers** - Model Context Protocol servers that provide tools and resources
+- **Configurations** - Settings, prompts, and resource files
+- **Documentation** - Usage guides and examples
 
 ## Directory Structure
 
@@ -20,15 +22,13 @@ This marketplace provides a centralized repository for discovering, sharing, and
 marketplace/
 ├── .claude-plugin/       # Marketplace metadata and configuration
 │   └── marketplace.json  # Marketplace manifest
-├── plugins/              # Claude Code plugins
-├── skills/               # Standalone Claude Code skills
-├── mcp-servers/          # Model Context Protocol servers
+├── plugins/              # Claude Code plugins (includes all extension types)
 └── README.md            # This file
 ```
 
 ## Installation
 
-To use extensions from this marketplace:
+To install plugins from this marketplace:
 
 1. Clone this repository:
    ```bash
@@ -36,69 +36,121 @@ To use extensions from this marketplace:
    cd claude-marketplace
    ```
 
-2. Browse the available plugins and skills in their respective directories
+2. Copy the desired plugin to your Claude plugins directory:
+   ```bash
+   cp -r plugins/plugin-name ~/.claude/plugins/
+   ```
 
-3. Install desired extensions by following their individual installation instructions
+3. Enable the plugin in `~/.claude/settings.json`:
+   ```json
+   {
+     "plugins": ["plugin-name"]
+   }
+   ```
 
-## Available Extensions
+4. Restart Claude Code
 
-### Plugins
+The plugin's bundled skills, MCP servers, and configurations are automatically loaded!
 
-Browse the [plugins/](../plugins/) directory for available plugins.
+## Available Plugins
 
-**Available:**
-- [network-tools](../plugins/network-tools/) - Network utility skills for ping and DNS lookups
+Browse the [plugins/](../plugins/) directory for available plugins. Each plugin may include skills, MCP servers, configurations, and more.
 
-### Skills
+### Currently Available
 
-Browse the [skills/](../skills/) directory for standalone skills.
+- **[network-tools](../plugins/network-tools/)** - Network utility skills for ping and DNS lookups
 
-*No standalone skills available yet - contributions welcome!*
-
-### MCP Servers
-
-Browse the [mcp-servers/](../mcp-servers/) directory for standalone Model Context Protocol servers.
-
-*No standalone MCP servers available yet - contributions welcome!*
-
-**Note:** MCP servers can also be bundled inside plugins for easier installation. Check individual plugins to see if they include MCP servers.
+*More plugins coming soon - contributions welcome!*
 
 ## Contributing
 
-We welcome contributions! To add your extension to the marketplace:
+We welcome contributions! To add your plugin to the marketplace:
 
 1. Fork this repository
-2. Add your extension to the appropriate directory:
-   - `plugins/` for Claude Code plugins
-   - `skills/` for standalone skills
-   - `mcp-servers/` for MCP servers
+2. Create your plugin in the `plugins/` directory
 3. Include proper documentation and metadata
 4. Submit a pull request
 
-### Submission Guidelines
+### Plugin Requirements
 
-**Plugins:**
-- Must include a `plugin.json` manifest file with name, version, description, and author
-- Should document any bundled skills, resources, or MCP servers
-- Can optionally bundle MCP servers (configured in plugin.json) for zero-configuration installation
-- Include installation and configuration instructions
+**All plugins must include:**
 
-**Skills:**
-- Must include proper YAML frontmatter with name, description, and trigger conditions
-- Document usage examples and expected behavior
+1. **`plugin.json` manifest** with:
+   - `name` (kebab-case)
+   - `version` (semver: 1.0.0)
+   - `description`
+   - `author` (name and email)
+   - `license` (e.g., MIT)
+   - Optional: `category` (productivity, development, utilities, networking)
+   - Optional: `keywords` for discoverability
 
-**MCP Servers:**
-- Can be distributed standalone (in `mcp-servers/`) or bundled in plugins (in `plugins/`)
-- Standalone: Must include manifest (package.json), require manual settings.json configuration
-- Plugin-bundled: Automatically configured via plugin.json, zero-config installation
-- Must specify tools/resources provided and protocol version
-- Include setup instructions and dependencies
-- Document API endpoints and capabilities
+2. **README.md** with:
+   - What the plugin does
+   - Installation instructions
+   - Usage examples
+   - List of included skills/MCP servers/resources
+   - Any dependencies or prerequisites
 
-**All Extensions:**
-- Each extension should have clear usage instructions
+3. **Clear structure**:
+   ```
+   plugins/your-plugin/
+   ├── plugin.json          # Required manifest
+   ├── README.md            # Required documentation
+   ├── LICENSE              # Required license file
+   ├── skills/              # Optional: bundled skills
+   ├── mcp-servers/         # Optional: bundled MCP servers
+   └── resources/           # Optional: additional resources
+   ```
+
+### Bundling Skills
+
+To include skills in your plugin, add them to a `skills/` subdirectory:
+
+```
+plugins/your-plugin/
+├── plugin.json
+└── skills/
+    └── skill-name/
+        └── SKILL.md     # YAML frontmatter + skill content
+```
+
+### Bundling MCP Servers
+
+To include MCP servers in your plugin, configure them in `plugin.json`:
+
+```json
+{
+  "name": "your-plugin",
+  "mcpServers": {
+    "server-name": {
+      "command": "node",
+      "args": ["./mcp-servers/server-name/index.js"],
+      "env": {
+        "API_KEY": "${API_KEY}"
+      }
+    }
+  }
+}
+```
+
+Then include the server implementation:
+
+```
+plugins/your-plugin/
+├── plugin.json
+└── mcp-servers/
+    └── server-name/
+        ├── index.js
+        └── package.json
+```
+
+### Quality Guidelines
+
 - Code should be well-tested and follow best practices
-- Clearly specify the license for your extension
+- Document all features and usage examples
+- Include error handling and validation
+- Clearly specify any external dependencies
+- Follow semantic versioning
 
 ## Development
 
