@@ -51,6 +51,23 @@ Before starting work:
 
 **Never assume you're on the right branch.** Always verify before committing.
 
+### Branch Cleanup
+
+After PRs are merged and remote branches are deleted, clean up stale local branches:
+
+```bash
+# Fetch and prune deleted remote branches
+git fetch --prune
+
+# List local branches that no longer exist on remote
+git branch -vv | grep ': gone]'
+
+# Delete local branches that were deleted from remote
+git branch -vv | grep ': gone]' | awk '{print $1}' | xargs -r git branch -D
+```
+
+Run this periodically to keep your local repository clean.
+
 ### Pull Request Workflow
 
 **Note**: The main branch is protected and requires pull requests for all changes.
