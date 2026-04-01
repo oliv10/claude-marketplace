@@ -11,6 +11,18 @@
   "keywords": ["network", "ip", "geolocation", "connectivity", "api", "demo"],
   "homepage": "https://github.com/oliv10/claude-marketplace",
   "repository": "https://github.com/oliv10/claude-marketplace",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "test -d \"${CLAUDE_PLUGIN_ROOT}/mcp-servers/network-info-server/node_modules\" || (cd \"${CLAUDE_PLUGIN_ROOT}/mcp-servers/network-info-server\" && npm install --silent)"
+          }
+        ]
+      }
+    ]
+  },
   "mcpServers": {
     "network-info-server": {
       "command": "node",

@@ -145,6 +145,36 @@ plugins/your-plugin/
         └── package.json
 ```
 
+**IMPORTANT: Auto-installing Dependencies**
+
+If your MCP server has npm dependencies, you MUST add a SessionStart hook to automatically install them:
+
+```json
+{
+  "name": "your-plugin",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "test -d \"${CLAUDE_PLUGIN_ROOT}/mcp-servers/server-name/node_modules\" || (cd \"${CLAUDE_PLUGIN_ROOT}/mcp-servers/server-name\" && npm install --silent)"
+          }
+        ]
+      }
+    ]
+  },
+  "mcpServers": {
+    "server-name": {
+      "command": "node",
+      "args": ["./mcp-servers/server-name/index.js"]
+    }
+  }
+}
+```
+
+This ensures dependencies are automatically installed when users first start Claude Code after installing your plugin. Without this hook, your MCP server tools won't be exposed to Claude.
+
 ### Quality Guidelines
 
 - Code should be well-tested and follow best practices
