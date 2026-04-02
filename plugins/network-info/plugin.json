@@ -1,6 +1,6 @@
 {
   "name": "network-info",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Get network information including your public IP address, IP geolocation, and internet connectivity status",
   "author": {
     "name": "Community Marketplace",
@@ -21,12 +21,8 @@
   "hooks": {
     "SessionStart": [
       {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "test -d \"${CLAUDE_PLUGIN_ROOT}/mcp-servers/network-info-server/node_modules\" || (cd \"${CLAUDE_PLUGIN_ROOT}/mcp-servers/network-info-server\" && npm install --silent)"
-          }
-        ]
+        "type": "command",
+        "command": "test -d \"${CLAUDE_PLUGIN_ROOT}/mcp-servers/network-info-server/node_modules\" || (cd \"${CLAUDE_PLUGIN_ROOT}/mcp-servers/network-info-server\" && npm install --silent)"
       }
     ]
   }
