@@ -2,8 +2,14 @@
     "hooks": {
         "SessionStart": [
             {
-                "type": "command",
-                "command": "npm install --silent --prefix \"${CLAUDE_PLUGIN_ROOT}/mcp-servers/demo-server\""
+                "matcher": "startup",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "npm install --silent --prefix \"${CLAUDE_PLUGIN_ROOT}/mcp-servers/demo-server\"",
+                        "statusMessage": "Installing demo-server dependencies..."
+                    }
+                ]
             }
         ]
     }
