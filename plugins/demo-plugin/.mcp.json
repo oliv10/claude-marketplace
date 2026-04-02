@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "demo-server": {
+      "command": "node",
+      "args": [
+        "${CLAUDE_PLUGIN_ROOT}/mcp-servers/demo-server/index.js"
+      ]
+    }
+  }
+}
