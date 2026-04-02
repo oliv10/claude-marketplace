@@ -15,14 +15,5 @@
             "args": ["${CLAUDE_PLUGIN_ROOT}/mcp-servers/demo-server/index.js"],
             "cwd": "${CLAUDE_PLUGIN_ROOT}/mcp-servers/demo-server"
         }
-    },
-    "skills": [
-        "skills/code-review"
-    ],
-    "commands": {
-        "demo": {
-            "description": "Run the demo command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/commands/demo.sh"
-        }
     }
 }
