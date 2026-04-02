@@ -3,7 +3,8 @@
     "description": "A demo plugin to learn the basics",
     "version": "1.0.0",
     "author": {
-        "name": "Oliver Scotten"
+        "name": "Oliver Scotten",
+        "email": "revi99@me.com"
     },
     "license": "MIT",
     "category": "demo",
