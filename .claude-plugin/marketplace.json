@@ -25,7 +25,7 @@
       "name": "network-info",
       "source": "./plugins/network-info",
       "description": "Get network information including your public IP address, IP geolocation, and internet connectivity status",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "author": {
         "name": "Community Marketplace",
         "email": "revi99@me.com"
