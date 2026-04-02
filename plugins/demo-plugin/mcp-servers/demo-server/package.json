@@ -1,7 +1,7 @@
 {
-  "name": "hello-mcp-server",
+  "name": "demo-server",
   "version": "1.0.0",
-  "description": "Demo MCP server with example tools",
+  "description": "Simple demo MCP server with basic example tools",
   "main": "index.js",
   "type": "commonjs",
   "scripts": {
