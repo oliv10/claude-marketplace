@@ -1,6 +1,6 @@
 {
   "name": "network-info",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Get network information including your public IP address, IP geolocation, and internet connectivity status",
   "author": {
     "name": "Community Marketplace",
@@ -13,9 +13,21 @@
   "repository": "https://github.com/oliv10/claude-marketplace",
   "mcpServers": {
     "network-info-server": {
-      "command": "npx",
-      "args": ["-y", "--prefix=${CLAUDE_PLUGIN_ROOT}/mcp-servers/network-info-server", "${CLAUDE_PLUGIN_ROOT}/mcp-servers/network-info-server/index.js"],
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/mcp-servers/network-info-server/index.js"],
       "cwd": "${CLAUDE_PLUGIN_ROOT}/mcp-servers/network-info-server"
     }
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "test -d \"${CLAUDE_PLUGIN_ROOT}/mcp-servers/network-info-server/node_modules\" || (cd \"${CLAUDE_PLUGIN_ROOT}/mcp-servers/network-info-server\" && npm install --silent)"
+          }
+        ]
+      }
+    ]
   }
 }
