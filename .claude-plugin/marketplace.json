@@ -16,40 +16,25 @@
   },
   "marketplace": {
     "type": "community",
-    "featured": ["network-info"],
+    "featured": ["demo-plugin"],
     "collections": [],
-    "categories": ["productivity", "development", "utilities", "networking"]
+    "categories": ["demo", "development", "utilities", "tutorial"]
   },
   "plugins": [
     {
-      "name": "network-info",
-      "source": "./plugins/network-info",
-      "description": "Get network information including your public IP address, IP geolocation, and internet connectivity status",
-      "version": "1.0.4",
-      "author": {
-        "name": "Community Marketplace",
-        "email": "revi99@me.com"
-      },
-      "homepage": "https://github.com/oliv10/claude-marketplace",
-      "repository": "https://github.com/oliv10/claude-marketplace",
-      "license": "MIT",
-      "keywords": ["network", "ip", "geolocation", "connectivity", "api", "demo"],
-      "category": "utilities"
-    },
-    {
-      "name": "network-tools",
-      "source": "./plugins/network-tools",
-      "description": "Network utility skills for ping and DNS lookups",
+      "name": "demo-plugin",
+      "source": "./plugins/demo-plugin",
+      "description": "A demo plugin to learn the basics",
       "version": "1.0.0",
       "author": {
-        "name": "Community Marketplace",
+        "name": "Oliver Scotten",
         "email": "revi99@me.com"
       },
       "homepage": "https://github.com/oliv10/claude-marketplace",
       "repository": "https://github.com/oliv10/claude-marketplace",
       "license": "MIT",
-      "keywords": ["network", "ping", "dns", "utilities", "networking"],
-      "category": "utilities"
+      "keywords": ["demo", "example", "tutorial"],
+      "category": "demo"
     }
   ]
 }
